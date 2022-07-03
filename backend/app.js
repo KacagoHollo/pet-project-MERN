@@ -11,12 +11,13 @@ const { errorHandler } = require("./middleware/errorHandler")
 
 
 
-app.use(
-  cors({
-      origin: process.env.APP_URL,
-      optionsSuccessStatus: 200
-  })
-);
+// app.use(
+//   cors({
+//       origin: process.env.APP_URL,
+//       optionsSuccessStatus: 200
+//   })
+// );
+app.use(cors());
 
 app.use(express.json())
 // app.use(logger); //minden hívásnál automatikusan lefut ez a middleware
@@ -32,20 +33,25 @@ const userRoutes = require("./route/user")
 app.use('/api/user', userRoutes);
 
 
-app.get("/api/public", (req, res) => {
-  // console.log("public")
-  res.send("Public functions")
-})
-app.get("/api/private", auth({block: true}), (req, res) => {
-  // console.log('private')
-  res.send(`Private functions: ${res.locals.userId}`)
+// app.get("/api/public", (req, res) => {
+//   // console.log("public")
+//   res.send("Public functions")
+// })
+// app.get("/api/private", auth({block: true}), (req, res) => {
+//   // console.log('private')
+//   res.send(`Private functions: ${res.locals.userId}`)
   
-})
+// })
 
-app.get("/api/anonymus", auth({block: false}), (req , res) => {
-  if (!res.locals.userID) return res.send("Hello public") 
-  res.send(`Hello anonymus id: ${res.locals.user.userId}`)
-})
+// app.get("/api/anonymus", auth({block: false}), (req , res) => {
+//   if (!res.locals.userId) return res.send("Hello public") 
+//   res.send(`Hello anonymus id: ${res.locals.user.userId}`)
+// })
+
+app.get("/", (req, res) => {
+  console.log("Health check completed");
+  res.sendStatus(200);
+});
 
 
 app.use(errorHandler);

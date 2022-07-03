@@ -1,0 +1,8 @@
+Client id: 
+67666964063-cb5l4sa6m4rm42f5fo20lih02ikrj8bb.apps.googleusercontent.com
+
+Client secret:
+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
+
+Redirect uri:
+http://localhost:3000/callback

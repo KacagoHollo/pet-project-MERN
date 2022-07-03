@@ -1,12 +1,12 @@
 require("dotenv").config();
+const port = process.env.PORT
 const mongoose = require('mongoose');
 const app = require('./app')
 
-const port = process.env.PORT
 
 mongoose.connect(process.env.CONNECTION_STRING, {
-  useNewUrlParser: true,
-useUnifiedTopology: true,
+//   useNewUrlParser: true,
+// useUnifiedTopology: true,
 // useFindAndModify: false
 }, () => {
   app.listen(port, () => {
