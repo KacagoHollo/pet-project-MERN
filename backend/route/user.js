@@ -74,17 +74,25 @@ router.post('/login', auth({block: false}), async (req, res) => {
         user = await user.save()
     }
 
-    const token = jwt.sign({"userID": user?._id, "providers": user ? user.providers : { [provider]: oId }}, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.status(200).json({ token });
 
 });
 
 router.post("/create", auth({block: true}), async (req, res) => {
-    if (!req.body?.username) return res.sendStatus(400);
-    const user = await User.create({username: req.body.username, providers: res.locals.user.providers});
+    if (!req.body?.username) return res.status(400).send("Missing credentials");
+    const user = await User.create({
+        username: req.body.username,
+        providers: res.locals.user.providers,
+        name: req.body.name,
+        title: req.body.title,
+        email: req.body.email,
+        phone: req.body.phone,
+        confirmation: req.body.confirmation
+    });
 
-    const token = jwt.sign({"userId": user._id, "providers": user.providers }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({"userId": user._id, "providers": user.providers, "username": user.username }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.status(200).json({ token });
 });

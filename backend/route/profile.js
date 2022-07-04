@@ -2,26 +2,12 @@ const router = require('express').Router();
 const auth = require('../middleware/auth');
 const User = require('../model/user');
 
+
 router.get('/', auth({block: true}), async (req, res) => {
     const user = await User.findById(res.locals.user.userId);
     if (!user) return res.status(404).send("User not found.");
     res.json({user});
-    // needs auth mw with block
-    // find user with userId from res.locals.userId
-    // return user.dashboards
-    // send all dashboards for user
-})
-
-// router.get('/api/dashboards/:id', async (req, res) => {
-// // send :id dashboards for user
-// })
-
-// router.get('/api/dashboards/:id/todos', async (req, res) => {
-// // send all todos from :id dashboard for user
-// })
-
-router.get('/:id/todos/:todoId', async (req, res) => {
-// send :todoId todo  from :id dashboards for user
+    
 })
 
 router.post('/', auth({ block: true }), async (req, res) => {

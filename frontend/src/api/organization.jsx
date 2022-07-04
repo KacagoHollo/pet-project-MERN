@@ -21,6 +21,35 @@ export const organization = () => {
         }
     };
 
+    const del = async (path, data) => {
+        try {
+            const response = await instance.delete(path, {
+                headers: {
+                    authorization: localStorage.getItem("token"),
+                },
+                data: data,
+            });
+            return response;
+        } catch (err) {
+            if (!err.response) return err;
+            return err.response;
+        }
+    };
+
+    const patch = async (path, data) => {
+        try {
+            const response = await instance.patch(path, data, {
+                headers: {
+                    authorization: localStorage.getItem("token"),
+                }
+            });
+            return response;
+        } catch (err) {
+            if (!err.response) return err;
+            return err.response;
+        }
+    };
+
     const get = async (path) => {
         try {
             const response = await instance.get(path, {
@@ -34,5 +63,5 @@ export const organization = () => {
             return err.response;
         }
     };
-    return { post, get, _instance: instance }; // _private_stuff
+    return { post, del, patch, get, _instance: instance }; // _private_stuff
 };

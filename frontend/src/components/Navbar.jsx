@@ -14,7 +14,14 @@ const Navbar = () => {
         <div className='left'>
           <button onClick={() => nav('/')}>Home</button>
           {/* <button onClick={() => nav('/about')}>About</button> */}
-          <button  onClick={() => nav('/profile')}>Profile</button>
+          { token ?
+            <button  onClick={() => nav('/profile')}>Profile</button>
+            : ""
+          }
+          { token ?
+          <button  onClick={() => nav('/organization')}>Organization</button>
+          : ""
+          }
         </div>
         <div className='right'>
           { token ? 

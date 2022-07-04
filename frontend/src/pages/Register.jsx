@@ -7,14 +7,19 @@ import { useAuth } from "../providers/auth";
 
 function Register() {
     const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [title, setTitle] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [confirmation, setConfirmation] = useState("");
     const navigate = useNavigate();
-    const { user, register, auth } = useAuth();
+    const { user, register, auth, token } = useAuth();
 
     useEffect(() => {
         if (user.userId) navigate("/profile");
       }, [user]);
 
-    // const register = async () => {
+    // const registers = async () => {
     //     const response = await http.post("http://localhost:3000/api/user/create", {
     //         username
     //     }, {
@@ -27,13 +32,20 @@ function Register() {
     // }
 
   return (
-    <div>Register
-        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
-        <button onClick={() => register(username)}>Register</button>
+    <div>
+      <h2>Register</h2>
+        { !user ? "Hello " + <h2>user.username</h2> :
+          <>
+            <input type="text" placeholder="Username" value={username} onChange={(event) => setUsername(event.target.value)} />
+            <input type="text" placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} />
+            <input type="text" placeholder="Title" value={title} onChange={(event) => setTitle(event.target.value)} />
+            <input type="email" placeholder="E-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input type="number" placeholder="Phone" value={phone} onChange={(event) => setPhone(event.target.value)} />
+            <button onClick={() => register(username)}>Register</button>
+          </>
+        }
         <hr />
-      <h1>OR!</h1>
-      <hr />
-      <button onClick={() => auth("google")}>Google</button>
+  
     </div>
   )
 }

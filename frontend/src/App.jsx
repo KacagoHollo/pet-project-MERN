@@ -7,9 +7,11 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 // import About from './pages/About';
 import Profile from './pages/Profile';
+import Organization from './pages/Organization';
 import Callback from './pages/Callback';
 import Protected from './components/Protected';
 import Register from './pages/Register';
+
 
 function App() {
   return (
@@ -21,6 +23,11 @@ function App() {
           <Route path='/profile' element={(
             <Protected> 
               <Profile />
+            </Protected>
+          )}/>
+          <Route path='/organization' element={(
+            <Protected> 
+              <Organization />
             </Protected>
           )}/>
           <Route path='/callback/:provider' element={<Callback />} />

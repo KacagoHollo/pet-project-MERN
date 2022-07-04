@@ -49,8 +49,8 @@ const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
-  const register = async (username) => {
-    const response = await post("/user/create", { username });
+  const register = async (username, name, title, email, phone, confirmation) => {
+    const response = await post("/user/create", { username, name, title, email, phone, confirmation });
 
     if (response?.status === 200) {
       setToken(response.data.token);
@@ -59,7 +59,17 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const contextValue = { token, auth, logout, login, user, register };
+  // const update = async (username) => {
+  //   const response = await post("/user/update", { username });
+
+  //   if (response?.status === 200) {
+  //     setToken(response.data.token);
+  //     localStorage.setItem("token", response.data.token);
+  //     setUser(jwt(response.data.token));
+  //   }
+  // };
+
+  const contextValue = { token, auth, logout, login, user, register};
 
   useEffect(() => {
     const tokenInStorage = localStorage.getItem("token");
