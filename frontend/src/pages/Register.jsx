@@ -19,9 +19,13 @@ function Register() {
         if (user.userId) navigate("/profile");
       }, [user]);
 
-    // const registers = async () => {
+    // const registerr = async () => {
     //     const response = await http.post("http://localhost:3000/api/user/create", {
-    //         username
+    //         username,
+    //         name,
+    //         title,
+    //         email,
+    //         phone
     //     }, {
     //         headers: {
     //             "authorization": localStorage.getItem("token")
@@ -41,7 +45,7 @@ function Register() {
             <input type="text" placeholder="Title" value={title} onChange={(event) => setTitle(event.target.value)} />
             <input type="email" placeholder="E-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
             <input type="number" placeholder="Phone" value={phone} onChange={(event) => setPhone(event.target.value)} />
-            <button onClick={() => register(username)}>Register</button>
+            <button onClick={() => register(username, name, title, email, phone)}>Register</button>
           </>
         }
         <hr />
