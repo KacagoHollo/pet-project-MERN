@@ -20,7 +20,7 @@ const Navbar = () => {
           { token ? 
             <button onClick={logout}>Logout</button> 
             :
-            <button onClick={auth}>Login</button>
+            <button onClick={() => auth('google')}>Login</button>
             
           }
         </div>

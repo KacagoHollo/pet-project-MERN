@@ -17,42 +17,49 @@ router.post('/login', auth({block: false}), async (req, res) => {
 
     if (!Object.keys(config.auth).includes(provider)) return res.status(400).send("Wrong payload")
 
-    
-    const response = await http.post(config.auth[provider].token_endpoint, {
-        "code": code,
-        "client_id": config.auth[provider].client_id,
-        "client_secret": config.auth[provider].client_secret,
-        "redirect_uri": config.auth[provider].redirect_uri,
-        "grant_type": config.auth[provider].grant_type,
+    const configProvider = config.auth[provider]; // google or github
+    const link = configProvider.tokenEndpoint;
+
+    const response = await http.post(link,
+    {
+        code: code,
+      client_id: configProvider.clientId,
+      client_secret: configProvider.clientSecret,
+      redirect_uri: configProvider.redirectUri,
+      grant_type: "authorization_code",
     },
-        {
-            headers: {
-                Accept: "application/json",
+    {
+        headers: {
+            Accept: "application/json",
             },
         }
     ); 
 
-    if (!response) return res.status(500).send("Token provider error");
-    if (response.status !== 200) return res.sendStatus(401);
+    if (!response) return res.status   (500).send("Token provider error");
+    if (response.status !== 200) {
+        console.log(response.data)
+        return res.status(401).send("Nope");
+    }
     
     let oId;
     const onlyOauth = !response.data.id_token;
     if (onlyOauth) {
-        let accesToken = response.data.access_token;
+        let accessToken = response.data.access_token;
         const userResponse = await http.post(
-            config.auth[provider].user_endpoint, {
+            configProvider.userEndpoint, 
+            {},
+            {
                 headers: {
-                    authorization: "Bearer " + accesToken,
+                    authorization: "Bearer " + accessToken,
                 },
             }
         );
-        if (!userResponse) return res.sendStatus(500)
+        if (!userResponse) return res.status(500).send("Provider error")
         if (userResponse.status !== 200) return res.sendStatus(401);
-        const id = config.auth[provider].user_id
-        oId = userResponse.data[id];
+        oId = userResponse.data.id;
     } else {
         const decoded = jwt.decode(response.data.id_token);
-        if (!decoded) return res.sendStatus(500)
+        if (!decoded) return res.status(500).send("Provider token error")
         oId = decoded.sub;
     }
 
@@ -67,9 +74,9 @@ router.post('/login', auth({block: false}), async (req, res) => {
         user = await user.save()
     }
 
-    const sessionToken = jwt.sign({"userID": user?._id, "providers": user ? user.providers : { [provider]: oId }}, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({"userID": user?._id, "providers": user ? user.providers : { [provider]: oId }}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    res.status(200).json({ sessionToken });
+    res.status(200).json({ token });
 
 });
 
@@ -77,9 +84,9 @@ router.post("/create", auth({block: true}), async (req, res) => {
     if (!req.body?.username) return res.sendStatus(400);
     const user = await User.create({username: req.body.username, providers: res.locals.user.providers});
 
-    const sessionToken = jwt.sign({"userID": user._id, "providers": user.providers }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({"userId": user._id, "providers": user.providers }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    res.status(200).json({ sessionToken });
+    res.status(200).json({ token });
 });
 
 module.exports = router;

@@ -23,7 +23,7 @@ function App() {
               <Profile />
             </Protected>
           )}/>
-          <Route path='/callback' element={<Callback />} />
+          <Route path='/callback/:provider' element={<Callback />} />
           <Route path='/register' element={
             <Protected>
               <Register />
