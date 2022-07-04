@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../providers/auth";
 import LoadingMask from "../components/Loadingmask.jsx";
 import ProfileDetails from "../components/ProfileDetails";
-
+import Button from "@mui/material/Button";
 
 const Profile = ({users}) => {
   const { user, token, auth, update } = useAuth();
@@ -39,7 +39,15 @@ const Profile = ({users}) => {
           <LoadingMask />
         )}
       </li>
-      <button onClick={() => update(username, name, title, email, phone)}>Update datas</button>    
+      <Button 
+        nClick={() => update(username, name, title, email, phone)}
+        variant="contained"
+        color="success"
+        size="small"
+
+      >
+        Update datas
+      </Button>    
 
     </div>
   );

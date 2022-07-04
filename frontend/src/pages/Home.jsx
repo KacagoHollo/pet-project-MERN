@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {useAuth} from '../providers/auth'
+import {useAuth} from '../providers/auth';
+import Button from "@mui/material/Button";
 
 const Home = () => {
     const { token, auth, user } = useAuth();
@@ -7,8 +8,15 @@ const Home = () => {
     console.log(auth);
   return (
     <div>
-        <p>{token ? "You are logged in " + user.username : "Hi anonymus!"}</p>
-        {token ? <h1>Welcome on the Bird Sanctuary page</h1> : (<button onClick={() => auth('google')}>Login with Google</button>)}
+        <h3>{token ? "You are logged in " + user.username : "Hi anonymus!"}</h3>
+        {token ? <h1>Welcome on the Bird Sanctuary page</h1> : (
+        <Button 
+          variant="contained"
+          color="success"
+          size="small"onClick={() => auth('google')}
+        >
+          Login with Google
+        </Button>)}
     </div>
   );
 };

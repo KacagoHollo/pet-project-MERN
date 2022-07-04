@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Fjalla+One&family=Yanone+Kaffeesatz:wght@300;500;700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -8,4 +10,45 @@ body {
   background: -webkit-linear-gradient(90deg, rgba(255,115,44,1) 0%, rgba(176,195,149,1) 40%, rgba(33,47,34,0.9076563730961135) 100%);
   background: linear-gradient(90deg, rgba(255,115,44,1) 0%, rgba(176,195,149,1) 40%, rgba(33,47,34,0.9076563730961135) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff732c",endColorstr="#212f22",GradientType=1); 
+
+  color: #212f22;
+}
+
+h1 {
+  font-family: 'Carter One', cursive;
+  font-weight: 400;
+}
+h2 {
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: 400;
+}
+h3, h4 {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 500;
+}
+
+
+.left {
+  display: flex;
+  gap: 2px;
+}
+
+.register {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.register input {
+  color: #212f22;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 700;
 }

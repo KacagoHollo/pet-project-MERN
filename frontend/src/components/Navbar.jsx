@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../providers/auth';
+import Button from "@mui/material/Button";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -12,22 +13,51 @@ const Navbar = () => {
   return (
     <nav className='navbar' style={{backgroundColor:"gray", display:"flex", justifyContent:"space-between"}}>
         <div className='left'>
-          <button onClick={() => nav('/')}>Home</button>
+          <Button 
+            onClick={() => nav('/')}
+            variant="contained"
+            color="success"
+            size="small"
+            >
+              Home</Button>
           {/* <button onClick={() => nav('/about')}>About</button> */}
           { token ?
-            <button  onClick={() => nav('/profile')}>Profile</button>
+            <Button  
+              onClick={() => nav('/profile')}
+              variant="contained"
+              color="success"
+              size="small"
+            >
+              Profile</Button>
             : ""
           }
           { token ?
-          <button  onClick={() => nav('/organization')}>Organization</button>
+            <Button
+              onClick={() => nav('/organization')}
+              variant="contained"
+              color="success"
+              size="small"
+            >
+              Organization</Button>
           : ""
           }
         </div>
         <div className='right'>
           { token ? 
-            <button onClick={logout}>Logout</button> 
+            <Button
+             onClick={logout}
+             variant="contained"
+              color="success"
+              size="small"
+            >Logout</Button> 
             :
-            <button onClick={() => auth('google')}>Login</button>
+            <Button
+             onClick={() => auth('google')}
+             variant="contained"
+              color="success"
+              size="small"
+             >
+              Login</Button>
             
           }
         </div>

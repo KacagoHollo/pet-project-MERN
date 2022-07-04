@@ -4,6 +4,8 @@ import http from 'axios'
 import { useNavigate } from 'react-router-dom';
 import {organization} from '../api/organization';
 import { useAuth } from "../providers/auth";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -38,16 +40,67 @@ function Register() {
       console.log(user);
 
   return (
-    <div>
+    <div className='register'>
       <h2>Register</h2>
         { !user ? "Hello " + <h2>user.username</h2> :
           <>
-            <input type="text" placeholder="Username" value={username} onChange={(event) => setUsername(event.target.value)} />
-            <input type="text" placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} />
-            <input type="text" placeholder="Title" value={title} onChange={(event) => setTitle(event.target.value)} />
-            <input type="email" placeholder="E-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
-            <input type="number" placeholder="Phone" value={phone} onChange={(event) => setPhone(event.target.value)} />
-            <button onClick={() => register(username, name, title, email, phone)}>Register</button>
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Username"
+              color="success"
+              type="text" 
+              placeholder="Username" 
+              value={username} 
+              onChange={(event) => setUsername(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Firstname and Lastname"
+              color="success"
+              type="text" 
+              placeholder="Name" 
+              value={name} 
+              onChange={(event) => setName(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Title"
+              color="success"
+              type="text" 
+              placeholder="Title" 
+              value={title} 
+              onChange={(event) => setTitle(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="E-mail"
+              color="success"
+              type="email"
+               placeholder="E-mail" 
+               value={email} 
+               onChange={(event) => setEmail(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Phone number"
+              color="success"
+              type="number"
+              placeholder="Phone number" 
+              value={phone} 
+              onChange={(event) => setPhone(event.target.value)} />
+            <Button onClick={() => register(username, name, title, email, phone)}
+              variant="contained"
+              color="success"
+              size="small"
+            >
+              Register
+            </Button>
           </>
         }
         <hr />
