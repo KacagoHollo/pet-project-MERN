@@ -3,7 +3,8 @@ import {useAuth} from '../providers/auth'
 
 const Home = () => {
     const { token, auth, user } = useAuth();
-    // const [username, setUserName] = useState(user.username);
+    console.log(user);
+    console.log(auth);
   return (
     <div>
         <p>{token ? "You are logged in " + user.username : "Hi anonymus!"}</p>

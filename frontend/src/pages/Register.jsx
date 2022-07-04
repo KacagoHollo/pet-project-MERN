@@ -35,6 +35,8 @@ function Register() {
     //     navigate('/profile')
     // }
 
+      console.log(user);
+
   return (
     <div>
       <h2>Register</h2>

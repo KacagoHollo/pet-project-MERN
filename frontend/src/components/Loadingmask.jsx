@@ -10,7 +10,7 @@ const LoadingMask = () => {
       direction="alternate"
       size="200px"
       primaryColor="green"
-      secondaryColor="#333"
+      secondaryColor="#111"
       numberOfRotationsInAnimation={2}
     />
   );

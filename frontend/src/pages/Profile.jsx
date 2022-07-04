@@ -5,29 +5,41 @@ import ProfileDetails from "../components/ProfileDetails";
 
 
 const Profile = ({users}) => {
-  const { user, token, auth } = useAuth();
-  const [username, setUserName] = useState("")
+  const { user, token, auth, update } = useAuth();
+
+  const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [title, setTitle] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [confirmation, setConfirmation] = useState("");
 
   useEffect(() => {
-    setUserName(user.username)
+
   }, [])
   
-  console.log(user.name);
+  console.log(user);
+  console.log(users);
   return (
     <div>
-      <p>{user ? "Welcome on the profile site " + username : "Anonymus"}</p>
-     <li>
-      {user ? 
-      //   (users.map((user, i) => (
-      //     <ProfileDetails user={user} key={i}/>
-      // ))
-      // ) 
-      <ul>{user.name}</ul>
-      : (
-        <LoadingMask />
-      )}
-     </li>
-     
+      <header>
+        <h4>Welcome on the profile site</h4>
+        <h2>{user ? user.username : "Anonymus"}</h2>
+      </header>
+      <h4>Your Profile datas:</h4>
+      <li>
+        {user ? 
+          <ul>
+            <li>Name: {user.name}</li>
+            <li>Title: {user.title}</li>
+            <li>E-mail: {user.email}</li>
+            <li>Phone: {user.phone}</li>
+          </ul>
+        : (
+          <LoadingMask />
+        )}
+      </li>
+      <button onClick={() => update(username, name, title, email, phone)}>Update datas</button>    
 
     </div>
   );

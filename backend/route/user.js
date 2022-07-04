@@ -74,7 +74,7 @@ router.post('/login', auth({block: false}), async (req, res) => {
         user = await user.save()
     }
 
-    const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }}, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, "username": user?.username, "name": user?.name, "title": user?.title, "email": user?.email, "phone": user?.phone}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.status(200).json({ token });
 
@@ -92,7 +92,7 @@ router.post("/create", auth({block: true}), async (req, res) => {
         confirmation: req.body.confirmation
     });
 
-    const token = jwt.sign({"userId": user._id, "providers": user.providers, "username": user.username }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({"userId": user._id, "providers": user.providers, "username": user.username, "name": user.name, "title": user.title, "email": user.email, "phone": user.phone }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.status(200).json({ token });
 });

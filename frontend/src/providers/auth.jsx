@@ -59,17 +59,17 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // const update = async (username) => {
-  //   const response = await post("/user/update", { username });
+  const update = async (username, name, title, email, phone, confirmation) => {
+    const response = await update("/user/update", { username, name, title, email, phone, confirmation });
 
-  //   if (response?.status === 200) {
-  //     setToken(response.data.token);
-  //     localStorage.setItem("token", response.data.token);
-  //     setUser(jwt(response.data.token));
-  //   }
-  // };
+    if (response?.status === 200) {
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      setUser(jwt(response.data.token));
+    }
+  };
 
-  const contextValue = { token, auth, logout, login, user, register};
+  const contextValue = { token, auth, logout, login, user, register, update};
 
   useEffect(() => {
     const tokenInStorage = localStorage.getItem("token");
