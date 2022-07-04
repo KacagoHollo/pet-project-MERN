@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/user');
 const auth = require('../middleware/auth')
 const config = require("../app.config")
+const Profile = require("../model/user");
 
 
 router.post('/login', auth({block: false}), async (req, res) => {
@@ -96,5 +97,14 @@ router.post("/create", auth({block: true}), async (req, res) => {
 
     res.status(200).json({ token });
 });
+
+router.patch("/update/:userId", auth({block: true}), async (req, res) => {
+    const userId = res.locals.user.userId;
+    if (!userId) return res.send("User not found").status(404);
+
+    const user = await User.findById(userId);
+    if (!user) return res.send("User not found").status(404);
+});
+
 
 module.exports = router;

@@ -40,7 +40,7 @@ const Profile = ({users}) => {
         )}
       </li>
       <Button 
-        nClick={() => update(username, name, title, email, phone)}
+        onClick={() => update(username, name, title, email, phone)}
         variant="contained"
         color="success"
         size="small"

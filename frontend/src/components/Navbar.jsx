@@ -11,7 +11,7 @@ const Navbar = () => {
         navigate(path);
     }
   return (
-    <nav className='navbar' style={{backgroundColor:"gray", display:"flex", justifyContent:"space-between"}}>
+    <nav className='navbar' style={{backgroundColor:"#b0c395", display:"flex", justifyContent:"space-between"}}>
         <div className='left'>
           <Button 
             onClick={() => nav('/')}
