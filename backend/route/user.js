@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const http = require('../util/http')
+const http = require('../util/http');
 const jwt = require('jsonwebtoken');
 const User = require('../model/user');
-const auth = require('../middleware/auth')
-const config = require("../app.config")
+const auth = require('../middleware/auth');
+const config = require("../app.config");
 const Profile = require("../model/user");
 
 
@@ -98,12 +98,16 @@ router.post("/create", auth({block: true}), async (req, res) => {
     res.status(200).json({ token });
 });
 
-router.patch("/update/:userId", auth({block: true}), async (req, res) => {
-    const userId = res.locals.user.userId;
-    if (!userId) return res.send("User not found").status(404);
+router.patch("/update/:username", auth({block: true}), async (req, res) => {
+    const username = res.locals.user.username;
+    if (!username) return res.send("User not found").status(404);
 
     const user = await User.findById(userId);
     if (!user) return res.send("User not found").status(404);
+
+    const token = jwt.sign({"userId": user._id, "providers": user.providers, "username": user.username, "name": user.name, "title": user.title, "email": user.email, "phone": user.phone }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+    res.status(200).json({ token });
 });
 
 
