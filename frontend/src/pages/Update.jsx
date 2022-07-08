@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useState, useEffect } from 'react'
 import http from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -6,56 +6,35 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../providers/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { organization } from "../api/organization";
 
-
-
-function Register() {
-    const [username, setUsername] = useState("");
+function Update() {
     const [name, setName] = useState("");
     const [title, setTitle] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [confirmation, setConfirmation] = useState("");
     const navigate = useNavigate();
-    const { user, register, auth, token } = useAuth();
+    const { user, register, auth, token} = useAuth();
+    const { patch } = organization();
 
-    useEffect(() => {
-        if (user.userId) navigate("/profile");
-      }, [user]);
-
-    // const registerr = async () => {
-    //     const response = await http.post("http://localhost:3000/api/user/create", {
-    //         username,
-    //         name,
-    //         title,
-    //         email,
-    //         phone
-    //     }, {
-    //         headers: {
-    //             "authorization": localStorage.getItem("token")
-    //         }
-    //     })
-    //     setUsername("")
-    //     navigate('/profile')
-    // }
-
-      console.log(user);
-
+    const update = async () => {
+        const response = await patch("/user/update", {
+          name,
+          title,
+          email,
+          phone
+        });
+        localStorage.removeItem("token")
+        console.log(response.data)
+        localStorage.setItem("token", response.data.token)
+        navigate('/profile')
+      }
   return (
     <div className='register'>
-      <h2>Register</h2>
+      <h2>Update</h2>
         { !user ? "Hello " + <h2>user.username</h2> :
           <>
-            <TextField variant="filled"
-              fullWidth
-              size="small"
-              autoFocus
-              label="Username"
-              color="success"
-              type="text" 
-              placeholder="Username" 
-              value={username} 
-              onChange={(event) => setUsername(event.target.value)} />
             <TextField variant="filled"
               fullWidth
               size="small"
@@ -96,19 +75,20 @@ function Register() {
               placeholder="Phone number" 
               value={phone} 
               onChange={(event) => setPhone(event.target.value)} />
-            <Button onClick={() => register(username, name, title, email, phone)}
+            <Button onClick={update}
               variant="contained"
               color="success"
               size="small"
             >
-              Register
+              Update
             </Button>
           </>
         }
         <hr />
   
+
     </div>
   )
 }
 
-export default Register;
+export default Update

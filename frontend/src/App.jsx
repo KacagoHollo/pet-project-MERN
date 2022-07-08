@@ -11,6 +11,7 @@ import Organization from './pages/Organization';
 import Callback from './pages/Callback';
 import Protected from './components/Protected';
 import Register from './pages/Register';
+import Update from './pages/Update';
 
 
 function App() {
@@ -25,11 +26,18 @@ function App() {
               <Profile />
             </Protected>
           )}/>
-          <Route path='/organization' element={(
+          <Route path='/update' element={(
+            <Protected> 
+              <Update />
+            </Protected>
+          )}/>
+          <Route path='/organization' element={
+            (
             <Protected> 
               <Organization />
             </Protected>
-          )}/>
+          ) 
+          }/>
           <Route path='/callback/:provider' element={<Callback />} />
           <Route path='/register' element={
             <Protected>

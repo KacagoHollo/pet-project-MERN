@@ -6,3 +6,11 @@ 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
 
 Redirect uri:
 http://localhost:3000/callback
+
+Map API key:
+AIzaSyBjmkvSusFR70u4OhCiH5upgCQRhGN0KRg
+
+Logflare:
+004fb71e-8228-4684-8578-91a10d34e81a
+
+gigalixir drains:add "https://api.logflare.app/logs/logplex?api_key=SAo8M-P12tZt&source=004fb71e-8228-4684-8578-91a10d34e81a"

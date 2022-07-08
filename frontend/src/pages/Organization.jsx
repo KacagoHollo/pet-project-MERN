@@ -3,16 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../providers/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import {organization} from '../api/organization';
+
 
 function Organization() {
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-    const [help, setHelp] = useState("");
-    const [availability, setAvailability] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const navigate = useNavigate();
-    const { user, register, auth, token } = useAuth();
+  const [help, setHelp] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
+
+  const { user, register, orgRegister, auth, token } = useAuth();
+  const { post, del, patch } = organization();
 
     useEffect(() => {
         if (!register) navigate("/profile");
@@ -84,7 +90,7 @@ function Organization() {
               placeholder="E-mail" 
               value={email} 
               onChange={(event) => setEmail(event.target.value)} />
-            <Button onClick={() => register(name, description, help, availability, phone, email)}
+            <Button onClick={() => orgRegister(name, description, help, availability, phone, email)}
               variant="contained"
               color="success"
               size="small"
@@ -97,4 +103,4 @@ function Organization() {
   )
 }
 
-export default Organization
+export default Organization;

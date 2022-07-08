@@ -8,7 +8,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const { post } = organization();
+  const { post, patch } = organization();
 
   const auth = (provider) => {
     const googleBaseUrl = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -59,8 +59,8 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const update = async (username, name, title, email, phone, confirmation) => {
-    const response = await update("/user/update", { username, name, title, email, phone, confirmation });
+  const orgRegister = async (org_id, name, description, help, availability, phone, email, web, address, national_park, information, admins) => {
+    const response = await post("/organization/create", { org_id, name, description, help, availability, phone, email, web, address, national_park, information, admins });
 
     if (response?.status === 200) {
       setToken(response.data.token);
@@ -69,7 +69,17 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const contextValue = { token, auth, logout, login, user, register, update};
+  // const update = async (name, title, email, phone, confirmation) => {
+  //   const response = await patch("/user/update", { name, title, email, phone, confirmation });
+
+  //   if (response?.status === 200) {
+  //     setToken(response.data.token);
+  //     localStorage.setItem("token", response.data.token);
+  //     setUser(jwt(response.data.token));
+  //   }
+  // };
+
+  const contextValue = { token, auth, logout, login, user, register, orgRegister};
 
   useEffect(() => {
     const tokenInStorage = localStorage.getItem("token");

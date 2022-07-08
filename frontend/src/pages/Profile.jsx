@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../providers/auth";
 import LoadingMask from "../components/Loadingmask.jsx";
-import ProfileDetails from "../components/ProfileDetails";
+import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
+import { organization } from "../api/organization";
 
 const Profile = ({users}) => {
-  const { user, token, auth, update } = useAuth();
+  const { user, token, auth} = useAuth();
+  const navigate = useNavigate();
+  const { patch } = organization();
 
   const [username, setUsername] = useState("");
     const [name, setName] = useState("");
@@ -13,6 +16,9 @@ const Profile = ({users}) => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [confirmation, setConfirmation] = useState("");
+
+
+  
 
   useEffect(() => {
 
@@ -40,11 +46,10 @@ const Profile = ({users}) => {
         )}
       </li>
       <Button 
-        onClick={() => update(username, name, title, email, phone)}
+        onClick={() => navigate('/update')}
         variant="contained"
         color="success"
         size="small"
-
       >
         Update datas
       </Button>    
