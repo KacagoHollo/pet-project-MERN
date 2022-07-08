@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const organizationSchema = new mongoose.Schema({
     name: {type: String, required: true},
     description: {type: String, required: true}, // empty string is enough
-    help: {type: Boolean, required: true},
+    help: {type:String, required: true},
     availability: {type: Array, required: true},
     phone: {type: Array, required: true},
     email: {type: String},

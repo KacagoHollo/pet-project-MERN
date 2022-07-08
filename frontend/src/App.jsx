@@ -32,11 +32,9 @@ function App() {
             </Protected>
           )}/>
           <Route path='/organization' element={
-            (
-            <Protected> 
+          
               <Organization />
-            </Protected>
-          ) 
+             
           }/>
           <Route path='/callback/:provider' element={<Callback />} />
           <Route path='/register' element={

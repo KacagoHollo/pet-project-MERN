@@ -13,7 +13,7 @@ router.get('/', auth({block: false}), async (req, res) => {
 })
 
 router.post('/create', auth({block: false}), async (req, res) => {
-    // const org_id = res.locals.organization.org_id;
+    const username = req.params.username;;
 
     const user = await User.findOne(username);
     if (!user) return res.send("User not found").status(404);
@@ -21,23 +21,28 @@ router.post('/create', auth({block: false}), async (req, res) => {
     // const orgId = await Org.findById(org_id);
     // if (!orgId) return res.send("Organization not found").status(404);
 
+    // if (!req.body?.name || req.body?.description || req.body?.phone || req.body?.email) return res.status(400).send("Missing credentials")
+
     const orgPost = Org({
         name: req.body.name,
-        description: {type: String, required: true}, // empty string is enough
-        help: {type: Boolean, required: true},
-        availability: {type: Array, required: true},
-        phone: {type: Array, required: true},
-        email: {type: String},
-        web: {type: String},
-        address: {type: Array},
-        national_park: {type: String},
-        information: {type: String},
-        admins: [{
-            user_id: {type: mongoose.SchemaTypes.ObjectId, ref: "User"},
-            email_hint: {type: String}
-        }]
+        description: req.body.description, 
+        help: req.body.help,
+        availability: req.body.availability,
+        phone: req.body.phone,
+        email:req.body.email,
+        web: req.body.web,
+        address: req.body.address,
+        national_park: req.body.national_park,
+        information: req.body.information,
+        // admins: [{
+        //     user_id: req.body.user_id,
+        //     email_hint: req.body.email_hint
+        // }]
     });
-    orgPost.save();
-    res.json(orgPost).status(200);
+
+    // const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, name: organization.name}, process.env.JWT_SECRET, { expiresIn: "1h" });
+    
+    await orgPost.save();
+    res.json({orgPost}).status(200);
 })
 module.exports = router;

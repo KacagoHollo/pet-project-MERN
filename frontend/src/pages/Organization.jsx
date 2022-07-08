@@ -14,6 +14,11 @@ function Organization() {
   const [availability, setAvailability] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [web, setWeb] = useState("");
+  const [address, setAddress] = useState("");
+  const [nationalPark, setNationalPark] = useState("");
+  const [information, setInformation] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -23,6 +28,25 @@ function Organization() {
     useEffect(() => {
         if (!register) navigate("/profile");
       }, [register]);
+
+      const registerOrg = async () => {
+        const response = await post("/organization/create", {
+          name,
+          description,
+          help,
+          availability,
+          phone,
+          email,
+          web,
+          address,
+          nationalPark,
+          information,
+        });
+        localStorage.removeItem("token")
+        console.log(response.data)
+        localStorage.setItem("token", response.data.token)
+        navigate('/profile')
+      }
 
   return (
     <div>
@@ -90,7 +114,47 @@ function Organization() {
               placeholder="E-mail" 
               value={email} 
               onChange={(event) => setEmail(event.target.value)} />
-            <Button onClick={() => orgRegister(name, description, help, availability, phone, email)}
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Web page"
+              color="success"
+              type="web"
+              placeholder="Your organization's web page" 
+              value={web} 
+              onChange={(event) => setWeb(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Address"
+              color="success"
+              type="text"
+              placeholder="Your organization's address" 
+              value={address} 
+              onChange={(event) => setAddress(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="National Park"
+              color="success"
+              type="text"
+              placeholder="Which National Park the organization belongs to?" 
+              value={nationalPark} 
+              onChange={(event) => setNationalPark(event.target.value)} />
+            <TextField variant="filled"
+              fullWidth
+              size="small"
+              autoFocus
+              label="Information"
+              color="success"
+              type="text"
+              placeholder="Any important information?" 
+              value={information} 
+              onChange={(event) => setInformation(event.target.value)} />
+            <Button onClick={registerOrg}
               variant="contained"
               color="success"
               size="small"
