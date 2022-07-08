@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/user');
 const auth = require('../middleware/auth');
 const config = require("../app.config");
-const Org = require("../model/organization")
-const OrgRoute = require('../route/organization')
+// const Org = require("../model/organization")
+// const OrgRoute = require('../route/organization')
 
 router.post('/login', auth({block: false}), async (req, res) => {
 

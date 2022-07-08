@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useContext, createContext } from "react";
 import jwt from "jwt-decode";
-import { organization } from "../api/organization";
+import { organizationApi } from "../api/organization";
 import config from "../app.config.js";
 
 const AuthContext = createContext();
@@ -8,7 +8,8 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const { post, patch } = organization();
+  const [organization, setOrganization] = useState(null);
+  const { post, patch } = organizationApi();
 
   const auth = (provider) => {
     const googleBaseUrl = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -59,13 +60,13 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const orgRegister = async (org_id, name, description, help, availability, phone, email, web, address, national_park, information, admins) => {
-    const response = await post("/organization/create", { org_id, name, description, help, availability, phone, email, web, address, national_park, information, admins });
+  const orgRegister = async (name, description, help, availability, phone, email, web, address, national_park, information, admins) => {
+    const response = await post("/organization/create", {name, description, help, availability, phone, email, web, address, national_park, information, admins });
 
     if (response?.status === 200) {
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-      setUser(jwt(response.data.token));
+      setOrganization(jwt(response.data.token));
     }
   };
 
@@ -79,7 +80,7 @@ const AuthProvider = ({ children }) => {
   //   }
   // };
 
-  const contextValue = { token, auth, logout, login, user, register, orgRegister};
+  const contextValue = { token, auth, logout, login, user, organization, register, orgRegister};
 
   useEffect(() => {
     const tokenInStorage = localStorage.getItem("token");

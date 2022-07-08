@@ -1,11 +1,11 @@
 import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../providers/auth';
 import Button from "@mui/material/Button";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { auth, token, logout } = useAuth()
+    const { auth, token, logout, organization } = useAuth()
     const nav = (path) => {
         console.log('rerouting');
         navigate(path);
@@ -31,7 +31,7 @@ const Navbar = () => {
               Profile</Button>
             : ""
           }
-          { token ?
+          { !organization ?
             <Button
               onClick={() => nav('/organization')}
               variant="contained"

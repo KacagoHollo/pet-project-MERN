@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../providers/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import {organization} from '../api/organization';
+import { organizationApi } from '../api/organization';
 
 
 function Organization() {
@@ -22,31 +22,35 @@ function Organization() {
 
   const navigate = useNavigate();
 
-  const { user, register, orgRegister, auth, token } = useAuth();
-  const { post, del, patch } = organization();
+  const { user, register, orgRegister, auth, token, organization } = useAuth();
+  const { post, del, patch } = organizationApi();
 
     useEffect(() => {
         if (!register) navigate("/profile");
       }, [register]);
 
-      const registerOrg = async () => {
-        const response = await post("/organization/create", {
-          name,
-          description,
-          help,
-          availability,
-          phone,
-          email,
-          web,
-          address,
-          nationalPark,
-          information,
-        });
-        localStorage.removeItem("token")
-        console.log(response.data)
-        localStorage.setItem("token", response.data.token)
-        navigate('/profile')
-      }
+    useEffect(() => {
+         if (organization) navigate("/profile");
+      }, [organization]);
+
+      // const registerOrg = async () => {
+      //   const response = await post("/organization/create", {
+      //     name,
+      //     description,
+      //     help,
+      //     availability,
+      //     phone,
+      //     email,
+      //     web,
+      //     address,
+      //     nationalPark,
+      //     information,
+      //   });
+      //   localStorage.removeItem("token")
+      //   console.log(response.data)
+      //   localStorage.setItem("token", response.data.token)
+      //   navigate('/profile')
+      // }
 
   return (
     <div>
@@ -154,7 +158,7 @@ function Organization() {
               placeholder="Any important information?" 
               value={information} 
               onChange={(event) => setInformation(event.target.value)} />
-            <Button onClick={registerOrg}
+            <Button onClick={() => orgRegister(name, description, help, availability, phone, email, web, address, nationalPark, information)}
               variant="contained"
               color="success"
               size="small"

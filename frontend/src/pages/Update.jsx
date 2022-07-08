@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../providers/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { organization } from "../api/organization";
+import { organizationApi } from "../api/organization";
 
 function Update() {
     const [name, setName] = useState("");
@@ -16,7 +16,7 @@ function Update() {
     const [confirmation, setConfirmation] = useState("");
     const navigate = useNavigate();
     const { user, register, auth, token} = useAuth();
-    const { patch } = organization();
+    const { patch } = organizationApi();
 
     const update = async () => {
         const response = await patch("/user/update", {

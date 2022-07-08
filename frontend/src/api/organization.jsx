@@ -1,7 +1,7 @@
 import http from "axios";
 import config from "../app.config";
 
-export const organization = () => {
+export const organizationApi = () => {
     const instance = http.create({
         baseURL: config.organization,
         timeout: 3000,

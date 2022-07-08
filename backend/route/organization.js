@@ -7,13 +7,13 @@ const User = require('../model/user');
 const Org = require('../model/organization')
 
 router.get('/', auth({block: false}), async (req, res) => {
-    const orgs = await Org.findById(res.locals.organization.org_id);
+    const orgs = await Org.findById(res.locals.organization._id);
     if (!orgs) return res.status(404).send("Organization not found.");
     res.json({orgs}).status(200);   
 })
 
-router.post('/create', auth({block: false}), async (req, res) => {
-    const username = req.params.username;;
+router.post('/create', auth({block: true}), async (req, res) => {
+    const username = req.params.username;
 
     const user = await User.findOne(username);
     if (!user) return res.send("User not found").status(404);
@@ -22,8 +22,9 @@ router.post('/create', auth({block: false}), async (req, res) => {
     // if (!orgId) return res.send("Organization not found").status(404);
 
     // if (!req.body?.name || req.body?.description || req.body?.phone || req.body?.email) return res.status(400).send("Missing credentials")
-
-    const orgPost = Org({
+    // const organization = await Org.findById(res.locals.organization._id);
+    // const orgPost = Org({
+    const organization = await Org.create({
         name: req.body.name,
         description: req.body.description, 
         help: req.body.help,
@@ -38,11 +39,14 @@ router.post('/create', auth({block: false}), async (req, res) => {
         //     user_id: req.body.user_id,
         //     email_hint: req.body.email_hint
         // }]
-    });
 
-    // const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, name: organization.name}, process.env.JWT_SECRET, { expiresIn: "1h" });
+    })
+
+    // });
+
+    const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, name: organization.name}, process.env.JWT_SECRET, { expiresIn: "1h" });
     
-    await orgPost.save();
-    res.json({orgPost}).status(200);
+    await organization.save();
+    res.json({ token, organization }).status(200);
 })
 module.exports = router;

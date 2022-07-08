@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+// const { organization } = require("../../frontend/src/api/organization");
 
 const auth =
   ({ block }) =>
@@ -8,10 +9,11 @@ const auth =
     console.log(token)
     if (!token && block) return res.sendStatus(401);
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user, organization) => {
       console.log(err)
       if (err && block) return res.sendStatus(401);
       res.locals.user = user;
+      res.locals.organization = organization;
     });
 
     next();
