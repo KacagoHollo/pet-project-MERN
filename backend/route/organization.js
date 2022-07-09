@@ -7,7 +7,6 @@ const User = require('../model/user');
 const Org = require('../model/organization')
 
 router.get('/all', auth({block: false}), async (req, res) => {
-    console.log('/api/orgs/all');
     const orgs = await Org.find().sort({id: 1});
     if (!orgs.length) return res.status(404).send("Orgs not found");
     res.json(orgs);  

@@ -65,4 +65,5 @@ describe("requests to api/dashboards", () => {
     expect(response.status).toBe(200);
     expect(response.body).toStrictEqual({ user: null });
   });
+  
 });

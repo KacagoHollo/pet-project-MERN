@@ -1,39 +1,96 @@
-# Fullstack Api Exam Project 2
+# Fullstack Api Exam Project || Vizsgaremek
 
-## Story
+It is my "final project" at the Fullstack Api class; a MERN-stack (full-stack) webapplication made with React & Node.js.
+The application is made for bird sanctuary, to collect the organizations, whihe can help with injured birds, or give advice or help in this topic.
 
-In the second half of your final project, you will need to implement your application using the plan you've already created. When you are finished with your project, you will need to send the repository to the mentor team, at least 1 week before the final.
+Start the program
 
-## What are you going to learn?
+Start the program with vsc
 
-- how to create a containerized application
+To start the codes do the following steps:
 
-## Tasks
+1. step
 
-1. Implement your project, fulfilling every requirement that has been given and send the repository link to the mentors.
-    - The project is completed
-    - The mentor team has the link to the repository
+clone the repository and open with vsc 2. step
 
-## General requirements
+at the terminal:
 
-- The application is an administrative system
-- The application uses model-service-component architecture
-- MongoDB base, with at least 5 entities (e.g. product, order, customer, delivery, bill ...)
-- NodeJS API, with at least 10 endpoints (e.g. /api/user, /api/product, /api/order ...)
-- Angular or React frontend, with at least 5 pages (Bootstrap/Material or other templates are allowed)
-- The application is dockerized, it can be run from a container
-- The client side is responsive
-- Some parts of the interface are only accessible after log in (JWT authentication)
-- Every element of the application is created with clean code principles
-- For every API path, there is at least 1 test written
-- At least 1-1 Unit and Integration test
-- Swagger based API documentation
-- Markdown dokumentation (readme) in the repository, containing the steps to install, how to configure and purpose of the application
+cd backend
+npm install
+cd ..
+cd frontend
+npm install
+cd ..
 
-## Hints
+3. step
 
+create az .env file at the backend folder with the following data
 
+PORT = 8080
+APP_URL={url-of-frontend}
+CONNECTION_STRING={mongo-connection-string}
 
-## Background materials
+GOOGLE_REDIRECT_URI = http://localhost:3000/callback/google
+GOOGLE_CLIENT_ID =
+GOOGLE_CLIENT_SECRET ={secret}
+JWT_SECRET =
 
+REACT_APP_GOOGLEBASEURL=https://accounts.google.com/o/oauth2/v2/auth
+REACT_APP_CLIENT_ID=
 
+LOGFLARE_SOURCE_ID=
+LOGFLARE_API_KEY=
+
+4. step
+
+copy the .env file at the root
+
+5.  step
+
+update the login's link at user.js with your GOOGLE_CLIENT_ID
+
+6. step
+
+cd frontend
+npm start
+cd ..
+cd backend
+npm start
+cd ..
+
+if you wish to use login and its features ask for permisson from the developer
+
+Main technologies I used
+
+React (w JavaScript ES6, react-router, basic & custom Hooks)
+Node.js (w express)
+MongoDB (w mongoose)
+CSS, material-UI
+Jest (w mongodb-memory-server, supertest & mocked data)
+Docker (w pipeline & docker-compose)
+Swagger (w yaml)
+
+Codes I used
+At frontend
+
+React: npx create-react-app frontend
+Material-ui: npm install @material-ui/Select, FormControl, InputLabel, MenuItem, Button, TextField
+Router: npm install react-router-dom
+JWT decode: npm i jwt-decode
+Axios: npm i axios
+jwt-decode,
+Loading spin: react-loading-spin
+
+At backend
+
+npm init
+npm i express
+npm install cors
+npm install dotenv
+npm install mongoose
+npm install axios
+npm i bcrypt
+npm i jsonwebtoken
+npm i jwt-decode
+npm i swagger-ui-express
+npm i pino-logflare

@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import http from 'axios';
-import config from '../app.config';
 import {useAuth} from '../providers/auth';
 import Button from "@mui/material/Button";
 import LoadingMask from '../components/Loadingmask'
 import {Select, FormControl, InputLabel, MenuItem} from '@mui/material';
 
 const Home = () => {
-    const [name, setName] = useState("")
-    const { token, auth, user} = useAuth();
+  const [name, setName] = useState("");
 
-    console.log(auth);
 
-    const [orgs, setOrgs] = useState(null);
+  const { token, auth, user} = useAuth();
+
+  console.log(auth);
+
+  const [orgs, setOrgs] = useState(null);
   
 
   const getOrgs = async () => {
@@ -26,6 +27,22 @@ const Home = () => {
     console.log(response.data);
     // setName(response.data.name);
   };
+  console.log(orgs);
+  // const displayOrgs = async () => {
+  //   await orgs.map(({name, description, help, availability, phone, email, web, address, nationalPark, information}) => {
+  //     return (<div className='zzz'>
+  //       <p>{name}</p>
+  //       <p>{description}</p>
+  //       <p>{help}</p>
+  //       <p>{availability}</p>
+  //       <p>{phone}</p>
+  //       <p>{email}</p>
+  //       <p>{web}</p>
+  //       <p>{address}</p>
+  //     </div>)
+  //   }
+  //   )
+  // }
 
   useEffect(() => {
     getOrgs();
@@ -61,15 +78,22 @@ const Home = () => {
                 value={name}
                 label="Organization"
                 onChange={(event) => setName(event.target.value)}
+                
               >
-                {orgs ? orgs.map((org, i) => (
-                  <MenuItem value={org.name}>{org.name}</MenuItem>
+                {orgs ? orgs.map(({name, description, phone, i}) => (
+
+                  <MenuItem value={name}>{name}</MenuItem>
+
+
+        
                 ))
                 :
                 <LoadingMask/>
               }
               </Select>
+              
             </FormControl>
+             
         </div>
         )
       }

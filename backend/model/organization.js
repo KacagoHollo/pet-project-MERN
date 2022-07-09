@@ -4,11 +4,11 @@ const organizationSchema = new mongoose.Schema({
     name: {type: String, required: true},
     description: {type: String, required: true}, // empty string is enough
     help: {type:String, required: true},
-    availability: {type: Array, required: true},
-    phone: {type: Array, required: true},
+    availability: {type: String, required: true},
+    phone: {type: Number, required: true},
     email: {type: String},
     web: {type: String},
-    address: {type: Array},
+    address: {type: String},
     national_park: {type: String},
     information: {type: String},
     admins: [{
