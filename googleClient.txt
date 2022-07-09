@@ -14,3 +14,5 @@ Logflare:
 004fb71e-8228-4684-8578-91a10d34e81a
 
 gigalixir drains:add "https://api.logflare.app/logs/logplex?api_key=SAo8M-P12tZt&source=004fb71e-8228-4684-8578-91a10d34e81a"
+
+//https://accounts.google.com/o/oauth2/v2/auth?client_id=67666964063-cb5l4sa6m4rm42f5fo20lih02ikrj8bb.apps.googleusercontent.com&response_type=code&scope=openid&redirect_uri=http://localhost:3000/callback/google

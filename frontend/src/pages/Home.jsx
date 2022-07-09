@@ -16,7 +16,7 @@ const Home = () => {
   
 
   const getOrgs = async () => {
-    const response = await http.get("http://localhost:8080/api/organization", {
+    const response = await http.get("http://localhost:8080/api/organization/all", {
       // headers: {
       //   authorization: token,
       // },

@@ -27,8 +27,8 @@ app.use(express.json())
 
 const organizationRoutes = require("./route/organization")
 app.use('/api/organization', organizationRoutes);
-const profileRoutes = require("./route/profile")
-app.use('/api/profile', profileRoutes);
+// const profileRoutes = require("./route/profile")
+// app.use('/api/profile', profileRoutes);
 const userRoutes = require("./route/user")
 app.use('/api/user', userRoutes);
 

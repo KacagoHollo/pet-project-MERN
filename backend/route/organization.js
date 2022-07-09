@@ -6,10 +6,11 @@ const auth = require('../middleware/auth');
 const User = require('../model/user');
 const Org = require('../model/organization')
 
-router.get('/', auth({block: false}), async (req, res) => {
-    const orgs = await Org.findById(res.locals.organization._id);
-    if (!orgs) return res.status(404).send("Organization not found.");
-    res.status(200).json({name: orgs.name});   
+router.get('/all', auth({block: false}), async (req, res) => {
+    console.log('/api/orgs/all');
+    const orgs = await Org.find().sort({id: 1});
+    if (!orgs.length) return res.status(404).send("Orgs not found");
+    res.json(orgs);  
 })
 
 router.post('/create', auth({block: true}), async (req, res) => {
