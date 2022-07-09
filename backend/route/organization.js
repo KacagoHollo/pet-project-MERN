@@ -9,7 +9,7 @@ const Org = require('../model/organization')
 router.get('/', auth({block: false}), async (req, res) => {
     const orgs = await Org.findById(res.locals.organization._id);
     if (!orgs) return res.status(404).send("Organization not found.");
-    res.json({orgs}).status(200);   
+    res.status(200).json({name: orgs.name});   
 })
 
 router.post('/create', auth({block: true}), async (req, res) => {
@@ -49,4 +49,31 @@ router.post('/create', auth({block: true}), async (req, res) => {
     await organization.save();
     res.json({ token, organization }).status(200);
 })
+
+router.patch("/update", auth({block: true}), async (req, res) => {
+
+    const username = req.params.username;
+
+    const user = await User.findOne(username);
+    if (!user) return res.send("User not found").status(404);
+
+    const organization = await Org.findById(req.params.organization._id);
+    if (!organization) return res.status(404).send("Organization not found.");
+
+    organization.name = req.body.name;
+    organization.description = req.body.description;
+    organization.help = req.body.help;
+    organization.availability = req.body.availability;
+    organization.phone = req.body.phone;
+    organization.email =req.body.email;
+    organization.web = req.body.web;
+    organization.address = req.body.address;
+    organization.national_park = req.body.national_park;
+    organization.information = req.body.information;
+    
+    const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, name: organization.name}, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+    await organization.save();
+    res.status(200).json({ token, organization, user });
+});
 module.exports = router;

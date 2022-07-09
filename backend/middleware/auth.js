@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-// const { organization } = require("../../frontend/src/api/organization");
+const { organization } = require("../model/organization");
 
 const auth =
   ({ block }) =>

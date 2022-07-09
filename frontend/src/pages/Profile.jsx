@@ -3,6 +3,7 @@ import { useAuth } from "../providers/auth";
 import LoadingMask from "../components/Loadingmask.jsx";
 import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
+import {Select, FormControl, InputLabel, MenuItem} from '@mui/material';
 import { organizationApi } from "../api/organization";
 
 const Profile = ({users}) => {
@@ -10,13 +11,16 @@ const Profile = ({users}) => {
   const navigate = useNavigate();
   const { patch } = organizationApi();
 
+  const [name, setName] = useState();
 
-  useEffect(() => {
 
-  }, [])
+  // useEffect(() => {
+
+  // }, [user])
+  // useEffect(() => {
+
+  // }, [organization])
   
-  console.log(user);
-  console.log(users);
   return (
     <div>
       <header>
@@ -51,7 +55,7 @@ const Profile = ({users}) => {
             <h4>Your organization is:</h4>
             <h2>{organization.name}</h2> 
             <Button 
-              onClick={() => navigate('/orgUpdate')}
+              onClick={() => navigate('/organization/update')}
               variant="contained"
               color="success"
               size="small"
@@ -70,6 +74,25 @@ const Profile = ({users}) => {
             >
             Create organization
             </Button>
+            {/* <br />
+            <h4>Or choose from the list</h4>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Organization</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                color="success"
+                
+                value={name}
+                label="Organization"
+                onChange={(event) => setName(event.target.value)}
+              >
+                {organization.map((org, i) => (
+                  <MenuItem value={org.name}>{org.name}</MenuItem>
+                ))
+              }
+              </Select>
+            </FormControl> */}
           </>
         }
       </div>

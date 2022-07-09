@@ -39,8 +39,6 @@ function Register() {
     //     navigate('/profile')
     // }
 
-      console.log(user);
-
   return (
     <div className='register'>
       <h2>Register</h2>

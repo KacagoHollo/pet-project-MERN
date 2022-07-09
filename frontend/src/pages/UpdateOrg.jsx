@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import { organizationApi } from '../api/organization';
 
 
-function Organization() {
+function UpdateOrg() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,37 +23,35 @@ function Organization() {
   const navigate = useNavigate();
 
   const { user, register, orgRegister, auth, token, organization } = useAuth();
+  const { post, del, patch } = organizationApi();
 
     useEffect(() => {
         if (!register) navigate("/profile");
       }, [register]);
 
-    useEffect(() => {
-         if (organization) navigate("/profile");
-      }, [organization]);
 
+      const update = async () => {
+        const response = await patch("/organization/update", {
+          name,
+          description, 
+          help, 
+          availability, 
+          phone, 
+          email, 
+          web, 
+          address, 
+          nationalPark, 
+          information
+        });
+        localStorage.removeItem("token")
+        console.log(response.data)
+        localStorage.setItem("token", response.data.token)
+        navigate('/profile')
+      }
 
-      // const registerOrg = async () => {
-      //   const response = await post("/organization/create", {
-      //     name,
-      //     description,
-      //     help,
-      //     availability,
-      //     phone,
-      //     email,
-      //     web,
-      //     address,
-      //     nationalPark,
-      //     information,
-      //   });
-      //   localStorage.removeItem("token")
-      //   console.log(response.data)
-      //   localStorage.setItem("token", response.data.token)
-      //   navigate('/profile')
-      // }
   return (
     <div>
-      <h2>Your organization</h2>
+      <h2>Your organization's update page</h2>
       
       { !user ? "Hello Anonymus, please register an admin account!" :
           <>
@@ -159,12 +157,12 @@ function Organization() {
               placeholder="Any important information?" 
               value={information} 
               onChange={(event) => setInformation(event.target.value)} />
-            <Button onClick={() => orgRegister(name, description, help, availability, phone, email, web, address, nationalPark, information)}
+            <Button onClick={update}
               variant="contained"
               color="success"
               size="small"
             >
-              Register
+              Update
             </Button>
           </>
   }
@@ -172,4 +170,4 @@ function Organization() {
   )
 }
 
-export default Organization;
+export default UpdateOrg;

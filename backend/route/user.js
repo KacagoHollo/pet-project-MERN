@@ -82,7 +82,7 @@ router.post('/login', auth({block: false}), async (req, res) => {
 });
 
 router.post("/create", auth({block: true}), async (req, res) => {
-    if (!req.body?.username || req.body?.name || req.body?.email) return res.status(400).send("Missing credentials");
+    if (!req.body?.username) return res.status(408).send("Missing credentials");
     const user = await User.create({
         username: req.body.username,
         providers: res.locals.user.providers,
@@ -90,7 +90,7 @@ router.post("/create", auth({block: true}), async (req, res) => {
         title: req.body.title,
         email: req.body.email,
         phone: req.body.phone,
-        confirmation: req.body.confirmation
+
     });
 
     const token = jwt.sign({"userId": user._id, "providers": user.providers, "username": user.username, "name": user.name, "title": user.title, "email": user.email, "phone": user.phone }, process.env.JWT_SECRET, { expiresIn: "1h" });

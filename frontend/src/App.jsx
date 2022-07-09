@@ -12,6 +12,7 @@ import Callback from './pages/Callback';
 import Protected from './components/Protected';
 import Register from './pages/Register';
 import Update from './pages/Update';
+import UpdateOrg from './pages/UpdateOrg';
 
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
           <Route path='/organization' element={
           
               <Organization />
+             
+          }/>
+          <Route path='/organization/update' element={
+          
+              <UpdateOrg />
              
           }/>
           <Route path='/callback/:provider' element={<Callback />} />
