@@ -38,12 +38,12 @@ describe("requests to api/dashboards", () => {
     // can be multiple client.set();
 
     // when
-    const response = await client.get("/api/organization");
+    const response = await client.get("/api/user/all");
 
     // then
     expect(response.status).toBe(200);
     const responseData = response.body;
-    expect(responseData.user.organization).toStrictEqual([]);
+    expect(responseData.user).toStrictEqual([]);
   });
 
   test("deleted user returns null object", async () => {
@@ -59,7 +59,7 @@ describe("requests to api/dashboards", () => {
     client.set("authorization", token);
 
     // when
-    const response = await client.get("/api/organization");
+    const response = await client.get("/api/user/all");
 
     // then
     expect(response.status).toBe(200);

@@ -11,6 +11,7 @@ const auth =
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user, organization) => {
       console.log(err)
+      console.log(auth)
       if (err && block) return res.sendStatus(401);
       res.locals.user = user;
       res.locals.organization = organization;

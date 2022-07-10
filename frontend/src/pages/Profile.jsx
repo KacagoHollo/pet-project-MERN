@@ -8,12 +8,11 @@ import {Select, FormControl, InputLabel, MenuItem} from '@mui/material';
 
 
 const Profile = ({username, name, title, email, phone}) => {
-  const { user, organization, logout} = useAuth();
+  const { user, organization} = useAuth();
   const navigate = useNavigate();
-
   
   const userDelete = async () => {
-        const response = await http.delete("http://localhost:3000/api/user/delete/:userId", {
+        const response = await http.delete("http://localhost:8080/api/user/delete", {
             username,
             name,
             title,
@@ -60,7 +59,7 @@ const Profile = ({username, name, title, email, phone}) => {
         Update datas
       </Button>    
       <Button 
-        onClick={() => navigate('/')}
+        onClick={userDelete}
         variant="contained"
         color="success"
         size="small"
@@ -74,7 +73,7 @@ const Profile = ({username, name, title, email, phone}) => {
             <h4>Your organization is:</h4>
             <h2>{organization.name}</h2> 
             <Button 
-              onClick={() => userDelete()}
+              onClick={() => navigate('/organization/update')}
               variant="contained"
               color="success"
               size="small"

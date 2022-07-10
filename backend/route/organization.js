@@ -6,8 +6,11 @@ const auth = require('../middleware/auth');
 const User = require('../model/user');
 const Org = require('../model/organization')
 
+
 router.get('/all', auth({block: false}), async (req, res) => {
+    console.log("Helló")
     const orgs = await Org.find().sort({id: 1});
+    console.log(orgs)
     if (!orgs.length) return res.status(404).send("Orgs not found");
     res.json(orgs);  
 })
@@ -52,28 +55,52 @@ router.post('/create', auth({block: true}), async (req, res) => {
 
 router.patch("/update", auth({block: true}), async (req, res) => {
 
+    // console.log("first")
+    // const username = req.params.username;
+    // console.log(username)
+    // const user = await User.findOne(username);
+    // if (!user) return res.send("User not found").status(404);
+
+    // const organization = await Org.findById(req.params.organization._id);
+    // if (!organization) return res.status(404).send("Organization not found.");
+
+    // organization.name = req.body.name;
+    // organization.description = req.body.description;
+    // organization.help = req.body.help;
+    // organization.availability = req.body.availability;
+    // organization.phone = req.body.phone;
+    // organization.email =req.body.email;
+    // organization.web = req.body.web;
+    // organization.address = req.body.address;
+    // organization.national_park = req.body.national_park;
+    // organization.information = req.body.information;
+
     const username = req.params.username;
 
     const user = await User.findOne(username);
     if (!user) return res.send("User not found").status(404);
 
-    const organization = await Org.findById(req.params.organization._id);
-    if (!organization) return res.status(404).send("Organization not found.");
+    const organization = await Org.findOneAndUpdate({
+        name: req.body.name,
+        description: req.body.description, 
+        help: req.body.help,
+        availability: req.body.availability,
+        phone: req.body.phone,
+        email:req.body.email,
+        web: req.body.web,
+        address: req.body.address,
+        national_park: req.body.national_park,
+        information: req.body.information,
+        // admins: [{
+        //     user_id: req.body.user_id,
+        //     email_hint: req.body.email_hint
+        // }]
 
-    organization.name = req.body.name;
-    organization.description = req.body.description;
-    organization.help = req.body.help;
-    organization.availability = req.body.availability;
-    organization.phone = req.body.phone;
-    organization.email =req.body.email;
-    organization.web = req.body.web;
-    organization.address = req.body.address;
-    organization.national_park = req.body.national_park;
-    organization.information = req.body.information;
+    })
     
     const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, name: organization.name}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     await organization.save();
-    res.status(200).json({ token, organization, user });
+    res.status(200).json({ token, organization });
 });
 module.exports = router;

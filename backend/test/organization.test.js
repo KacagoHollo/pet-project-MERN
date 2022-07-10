@@ -52,7 +52,49 @@ describe("/api/organization tests", () => {
         expect(response.status).toBe(200);
         const responseData = response.body;
         expect(responseData).toStrictEqual([{
-            "_id": "62c9eb23f441791e5f554e8e",
+            "_id": '62c9eb23f441791e5f554e8e',
+              "name": "MME",
+              "description": "Birds everywhere",
+              "help": "any",
+              "availability": "Anytime",
+              "phone": 11111111,
+              "email": "mme@mme.hu",
+              "web": "www.mme.hu",
+              "address": "idk",
+              "national_park": "Any",
+              "information": "Lot",
+              "admins": [],
+              "__v": 0
+            }]);
+      });
+    test("/all -> status 200 and post", async () => {
+
+        //given
+        const id = '62c9eb23f441791e5f554e8e'
+        const Org1 = new Org({
+            _id: id,
+            name: "MME",
+            description: "Birds everywhere",
+            help: "any",
+            availability: "Anytime",
+            phone: 11111111,
+            email: "mme@mme.hu",
+            web: "www.mme.hu",
+            address: "idk",
+            national_park: "Any",
+            information: "Lot",
+            admins: [],
+        });
+        await Org1.save();
+    
+        //when
+        const response = await client.post("/api/organization/create");
+    
+        //then
+        expect(response.status).toBe(200);
+        const responseData = response.body;
+        expect(responseData).toStrictEqual([{
+            "_id": '62c9eb23f441791e5f554e8e',
               "name": "MME",
               "description": "Birds everywhere",
               "help": "any",

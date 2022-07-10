@@ -134,4 +134,12 @@ router.delete("/delete:userId", auth({ block: true }), async (req, res) => {
   
   });
 
+  router.get('/all', auth({block: false}), async (req, res) => {
+    console.log("Helló")
+    const users = await User.find().sort({id: 1});
+    console.log(users)
+    if (!users.length) return res.status(404).send("Users not found");
+    res.json(users);  
+})
+
 module.exports = router;

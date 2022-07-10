@@ -28,10 +28,13 @@ function UpdateOrg() {
     useEffect(() => {
         if (!register) navigate("/profile");
       }, [register]);
+    useEffect(() => {
+        
+      }, [organization]);
 
 
       const update = async () => {
-        const response = await patch("/organization/update", {
+        const response = await patch("http://localhost:8080/api/organization/update", {
           name,
           description, 
           help, 
