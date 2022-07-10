@@ -3,6 +3,8 @@
 It is my "final project" at the Fullstack Api class; a MERN-stack (full-stack) webapplication made with React & Node.js.
 The application is made for bird sanctuary, to collect the organizations, whihe can help with injured birds, or give advice or help in this topic.
 
+Swagger documentation => https://app.swaggerhub.com/apis/KacagoHollo/BirdSanctuary/1.0.0
+
 Start the program
 
 Start the program with vsc
