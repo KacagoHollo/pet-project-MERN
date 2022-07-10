@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/user');
 const auth = require('../middleware/auth');
 const config = require("../app.config");
-// const Org = require("../model/organization")
-// const OrgRoute = require('../route/organization')
 
 router.post('/login', auth({block: false}), async (req, res) => {
 
@@ -119,5 +117,21 @@ router.patch("/update", auth({block: true}), async (req, res) => {
     res.status(200).json({ user, token });
 });
 
+router.delete("/delete:userId", auth({ block: true }), async (req, res) => {
+  
+    const user = await User.findById(res.locals.user.userId);
+    if (!user) res.status(404).send("User not found.");
+  
+    User.deleteOne("token", async (err, result) => {
+        if(err) console.log(err); 
+        else console.log(result) 
+
+        const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, "username": user?.username, "name": user?.name, "title": user?.title, "email": user?.email, "phone": user?.phone}, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+        await user.save();
+        res.status(200).json({token});
+    })
+  
+  });
 
 module.exports = router;

@@ -17,15 +17,11 @@ const Home = () => {
   
 
   const getOrgs = async () => {
-    const response = await http.get("http://localhost:8080/api/organization/all", {
-      // headers: {
-      //   authorization: token,
-      // },
-    });
+    const response = await http.get("http://localhost:8080/api/organization/all", {});
 
     setOrgs(response.data);
     console.log(response.data);
-    // setName(response.data.name);
+
   };
   console.log(orgs);
   // const displayOrgs = async () => {

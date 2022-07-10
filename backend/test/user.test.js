@@ -52,7 +52,7 @@ describe("/api/user tests", () => {
         const responseData = response.body;
         const user = responseData.user;
     
-        // expect(users).toHaveLength(1);
+        // expect(user).toHaveLength(1);
         // expect(user.username).toStrictEqual("Munnin");
         // expect(user.name).toStrictEqual("Munnin the Raven");
         // expect(user.title).toStrictEqual("Prof");

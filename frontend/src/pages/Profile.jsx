@@ -1,25 +1,36 @@
 import React, { useState, useEffect } from "react";
+import http from 'axios'
 import { useAuth } from "../providers/auth";
 import LoadingMask from "../components/Loadingmask.jsx";
 import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import {Select, FormControl, InputLabel, MenuItem} from '@mui/material';
-import { organizationApi } from "../api/organization";
 
-const Profile = ({users}) => {
-  const { user, token, auth, organization} = useAuth();
+
+const Profile = ({username, name, title, email, phone}) => {
+  const { user, organization, logout} = useAuth();
   const navigate = useNavigate();
-  const { patch } = organizationApi();
 
-  const [name, setName] = useState();
+  
+  const userDelete = async () => {
+        const response = await http.delete("http://localhost:3000/api/user/delete/:userId", {
+            username,
+            name,
+            title,
+            email,
+            phone
+        }, {
+            headers: {
+                "authorization": localStorage.getItem("token")
+            }
+        })
+        localStorage.removeItem("token");
+        navigate('/');
+    }
 
+  useEffect(() => {
 
-  // useEffect(() => {
-
-  // }, [user])
-  // useEffect(() => {
-
-  // }, [organization])
+  }, [organization])
   
   return (
     <div>
@@ -48,6 +59,14 @@ const Profile = ({users}) => {
       >
         Update datas
       </Button>    
+      <Button 
+        onClick={() => navigate('/')}
+        variant="contained"
+        color="success"
+        size="small"
+      >
+        Delete profile
+      </Button>    
       <br />
       <div className="org">
         { organization ?
@@ -55,7 +74,7 @@ const Profile = ({users}) => {
             <h4>Your organization is:</h4>
             <h2>{organization.name}</h2> 
             <Button 
-              onClick={() => navigate('/organization/update')}
+              onClick={() => userDelete()}
               variant="contained"
               color="success"
               size="small"

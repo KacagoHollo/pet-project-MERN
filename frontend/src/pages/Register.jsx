@@ -23,22 +23,6 @@ function Register() {
         if (user.userId) navigate("/profile");
       }, [user]);
 
-    // const registerr = async () => {
-    //     const response = await http.post("http://localhost:3000/api/user/create", {
-    //         username,
-    //         name,
-    //         title,
-    //         email,
-    //         phone
-    //     }, {
-    //         headers: {
-    //             "authorization": localStorage.getItem("token")
-    //         }
-    //     })
-    //     setUsername("")
-    //     navigate('/profile')
-    // }
-
   return (
     <div className='register'>
       <h2>Register</h2>
