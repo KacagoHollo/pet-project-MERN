@@ -9,12 +9,12 @@ const auth =
     console.log(token)
     if (!token && block) return res.sendStatus(401);
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user, organization) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
       console.log(err)
       console.log(auth)
       if (err && block) return res.sendStatus(401);
-      res.locals.user = user;
-      res.locals.organization = organization;
+      res.locals.user = payload;
+      
     });
 
     next();

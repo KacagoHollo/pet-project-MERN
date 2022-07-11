@@ -34,22 +34,25 @@ function UpdateOrg() {
 
 
       const update = async () => {
-        const response = await patch("http://localhost:8080/api/organization/update", {
-          name,
-          description, 
-          help, 
-          availability, 
-          phone, 
-          email, 
-          web, 
-          address, 
-          nationalPark, 
-          information
-        });
-        localStorage.removeItem("token")
-        console.log(response.data)
-        localStorage.setItem("token", response.data.token)
-        navigate('/profile')
+        // const response = await patch("http://localhost:8080/api/organization/update", 
+        // {
+          // name,
+          // description, 
+          // help, 
+          // availability, 
+          // phone, 
+          // email, 
+          // web, 
+          // address, 
+          // nationalPark, 
+          // information
+        // }
+        // );
+        // localStorage.removeItem("token")
+        // console.log(response.data)
+        // localStorage.setItem("token", response.data.token)
+        // navigate('/profile')
+        console.log(user.userId)
       }
 
   return (

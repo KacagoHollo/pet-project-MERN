@@ -32,7 +32,7 @@ function Organization() {
          if (organization) navigate("/profile");
       }, [organization]);
 
-
+      console.log(organization)
       // const registerOrg = async () => {
       //   const response = await post("/organization/create", {
       //     name,

@@ -7,18 +7,12 @@ import Button from "@mui/material/Button";
 import {Select, FormControl, InputLabel, MenuItem} from '@mui/material';
 
 
-const Profile = ({username, name, title, email, phone}) => {
+const Profile = () => {
   const { user, organization} = useAuth();
   const navigate = useNavigate();
   
   const userDelete = async () => {
-        const response = await http.delete("http://localhost:8080/api/user/delete", {
-            username,
-            name,
-            title,
-            email,
-            phone
-        }, {
+        const response = await http.delete(`http://localhost:8080/api/user/${user.userId}`, {
             headers: {
                 "authorization": localStorage.getItem("token")
             }
@@ -28,7 +22,7 @@ const Profile = ({username, name, title, email, phone}) => {
     }
 
   useEffect(() => {
-
+    
   }, [organization])
   
   return (
