@@ -90,7 +90,7 @@ const Home = () => {
             <p><b>Description:</b> <span>{value[1]}</span></p>
             <p><b>Type of help:</b> <span>{value[2]}</span></p>
             <p><b>Phone number:</b> <span>{value[3]}</span></p>
-            <Details/>
+            <Details email={value[4]} web={value[5]} address={value[6]} national_park={value[7]} information={value[8]}/>
         </div>   
     </div>
     );
