@@ -16,6 +16,7 @@ const Home = () => {
 
   const [orgs, setOrgs] = useState(null);
   const [value, setValue] = useState("");
+  const [image, setImage] = useState("./img/logo.png");
   
 
   const getOrgs = async () => {
@@ -40,7 +41,7 @@ const Home = () => {
 
   console.log(orgs);
   return (
-    <div>
+    <div className='home' style={{ backgroundImage: `url(/${image})`}}>
         <h3>{token ? "You are logged in " + user.username : "Hi anonymus!"}</h3>
         <h1>Welcome on the Bird Sanctuary page</h1>
         {
@@ -61,7 +62,7 @@ const Home = () => {
           )
           : ""
         }
-        <div>
+        <div className='form'>
           <br />
           <h3>Check the registered Bird Sanctuarys</h3>
             <FormControl fullWidth>

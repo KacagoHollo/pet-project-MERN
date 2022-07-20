@@ -8,25 +8,29 @@ import {Select, FormControl, InputLabel, MenuItem} from '@mui/material';
 
 
 const Profile = () => {
-  const { user, organization} = useAuth();
+  const { token, user, organization } = useAuth();
   const navigate = useNavigate();
   
   const userDelete = async () => {
-        const response = await http.delete(`http://localhost:8080/api/user/${user.userId}`, {
-            headers: {
-                "authorization": localStorage.getItem("token")
-            }
-        })
-        localStorage.removeItem("token");
-        navigate('/');
-    }
-
+    const response = await http.delete(`http://localhost:8080/api/user/${user.userId}`, {
+      headers: {
+        "authorization": localStorage.getItem("token")
+      }
+    })
+    window.location.reload();
+    localStorage.removeItem("token");
+    navigate('/');
+  }
+  
   useEffect(() => {
     
   }, [organization])
+
+  useEffect(() => {
+  }, [token])
   
   return (
-    <div>
+    <div className="profile">
       <header>
         <h4>Welcome on the profile site</h4>
         <h2>{user ? user.name : "Anonymus"}</h2>

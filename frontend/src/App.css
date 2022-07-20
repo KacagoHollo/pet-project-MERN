@@ -1,5 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Fjalla+One&family=Yanone+Kaffeesatz:wght@300;500;700&display=swap');
 
+* {
+  /* margin: 0; */
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  background: transparent;
+  /* font-family: inherit; */
+  text-decoration: none;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a,
+img {
+  border: none;
+}
+
+button,
+a {
+  cursor: pointer;
+  color: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+button,
+input,
+textarea,
+select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  /* safari, opera, chrome miatt */
+  border-radius: 0;
+}
+
+/* CSS reset */
+
+
 .App {
   text-align: center;
 }
@@ -57,4 +108,54 @@ h3, h4 {
   color: black;
   font-size: 50px;
   z-index: 100;
+}
+
+p {
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: 400;
+}
+
+p span {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+
+  font-size: 18px;
+}
+
+.profile Button {
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: 400;
+  margin: 3px 5px;
+
+}
+
+nav.navbar {
+  height: 50px;
+}
+
+nav.navbar Button {
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: 400;
+  margin: 5px 2px 5px;
+  height: 40px;
+  
+}
+
+div.right Button {
+  margin-right: 5px;
+}
+
+div.form {
+margin: 0 auto;
+  width: 70%;
+}
+
+div.org-form {
+  margin: 0 auto;
+  width: 60%;
+}
+
+div.org-form button {
+  margin-top: 20px;
 }

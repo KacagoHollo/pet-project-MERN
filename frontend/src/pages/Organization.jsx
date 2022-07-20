@@ -33,26 +33,9 @@ function Organization() {
       }, [organization]);
 
       console.log(organization)
-      // const registerOrg = async () => {
-      //   const response = await post("/organization/create", {
-      //     name,
-      //     description,
-      //     help,
-      //     availability,
-      //     phone,
-      //     email,
-      //     web,
-      //     address,
-      //     nationalPark,
-      //     information,
-      //   });
-      //   localStorage.removeItem("token")
-      //   console.log(response.data)
-      //   localStorage.setItem("token", response.data.token)
-      //   navigate('/profile')
-      // }
+  
   return (
-    <div>
+    <div className='org-form'>
       <h2>Your organization</h2>
       
       { !user ? "Hello Anonymus, please register an admin account!" :
@@ -61,6 +44,7 @@ function Organization() {
             <h3>{user.name}</h3>
             <TextField variant="filled"
               fullWidth
+              required
               size="small"
               autoFocus
               label="Name of the organization"
@@ -71,6 +55,7 @@ function Organization() {
               onChange={(event) => setName(event.target.value)} />
             <TextField variant="filled"
               fullWidth
+              required
               size="small"
               autoFocus
               label="Description"
@@ -81,6 +66,7 @@ function Organization() {
               onChange={(event) => setDescription(event.target.value)} />
             <TextField variant="filled"
               fullWidth
+              required
               size="small"
               autoFocus
               label="Type of help"
@@ -91,6 +77,7 @@ function Organization() {
               onChange={(event) => setHelp(event.target.value)} />
             <TextField variant="filled"
               fullWidth
+              required
               size="small"
               autoFocus
               label="Availability"
@@ -101,6 +88,7 @@ function Organization() {
                onChange={(event) => setAvailability(event.target.value)} />
             <TextField variant="filled"
               fullWidth
+              required
               size="small"
               autoFocus
               label="Phone number"
