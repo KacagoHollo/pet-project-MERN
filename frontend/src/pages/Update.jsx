@@ -19,14 +19,19 @@ function Update() {
     const { patch } = organizationApi();
 
     const update = async () => {
-        const response = await patch("/user/update", {
+        const response = await patch("http://localhost:8080/api/user/update", {
+          headers: {
+            "authorization": localStorage.getItem("token")
+          }
+        }, 
+        {
           name,
           title,
           email,
           phone
         });
         localStorage.removeItem("token")
-        console.log(response.data)
+        console.log(response.data.token)
         localStorage.setItem("token", response.data.token)
         navigate('/profile')
       }

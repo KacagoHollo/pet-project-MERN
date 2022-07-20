@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     name: {type: String},
     title: {type: String},
     email: {type: String},
-    phone: {type: Number},
+    phone: {type: String},
     // confirmation: {type: Boolean, default: false}
 });
 

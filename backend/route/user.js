@@ -102,22 +102,24 @@ router.post("/create", auth({block: true}), async (req, res) => {
 router.patch("/update", auth({block: true}), async (req, res) => {
     // const username = req.params.username;
 
-    if (!username) return res.status(404).send("User not found");
+    // if (!username) return res.status(404).send("User not found");
 
     // const user = await User.findOne(username);
     // if (!user) return res.send("User not found").status(404);
 
-    const user = await User.findById(res.locals.user.userId);
-    user.username = req.body.username;
-    user.name = req.body.name;
-    user.title = req.body.title;
-    user.email = req.body.email;
-    user.phone = req.body.phone;
+    const user = await User.findById((res.locals.user.userId), {
+        // username: req.body.username,
+        // providers: res.locals.user.providers,
+        name: req.body.name,
+        title: req.body.title,
+        email: req.body.email,
+        phone: req.body.phone,
+})
     
     const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, "username": user?.username, "name": user?.name, "title": user?.title, "email": user?.email, "phone": user?.phone}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     await user.save();
-    res.status(200).json({ user, token });
+    res.status(200).json({ token });
 });
 
 router.delete("/:userId", auth({ block: true }), async (req, res) => {

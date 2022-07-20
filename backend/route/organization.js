@@ -44,7 +44,6 @@ router.post('/create', auth({block: true}), async (req, res) => {
     const token = jwt.sign({"userId": user?._id, "providers": user ? user.providers : { [provider]: oId }, name: organization.name, orgId: organization._id}, process.env.JWT_SECRET, { expiresIn: "1h" });
     
     await organization.save();
-    user.save(organization);
     res.status(200).json({ token, organization });
 })
 

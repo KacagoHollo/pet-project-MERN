@@ -47,11 +47,11 @@ function UpdateOrg() {
           nationalPark, 
           information
         },
-        {
-          headers: {
-            authorization: localStorage.getItem("token"),
-          },
-        }
+        // {
+        //   headers: {
+        //     authorization: localStorage.getItem("token"),
+        //   },
+        // }
         );
         localStorage.removeItem("token")
         console.log(response.data)
